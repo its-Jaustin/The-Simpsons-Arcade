@@ -3,6 +3,8 @@ import sys
 from os.path import join
 from player import Homer 
 import level as lvl
+import tkinter as tk
+from tkinter import ttk
 
 # Initialize Pygame
 pygame.init()
@@ -10,8 +12,30 @@ pygame.init()
 clock = pygame.time.Clock()
 
 
-# Set up the display
-SCALE_FACTOR = 2.5  # Increase size by 2x
+# Function to get user-selected scale factor
+def get_scale_factor():
+    root = tk.Tk()
+    root.title("Select Resolution")
+
+    scale_factor = tk.DoubleVar(value=2.5)
+
+    def submit():
+        root.quit()
+        root.destroy()
+
+    tk.Label(root, text="Select Resolution Scale :").pack(pady=20)
+    
+    # Dropdown menu with predefined scale factors
+    options = [1.0, 1.5, 2.0, 2.5, 3.0]
+    ttk.Combobox(root, textvariable=scale_factor, values=options, state="readonly").pack(pady=5)
+
+    tk.Button(root, text="Start Game", command=submit).pack(pady=20)
+
+    root.mainloop()
+    return scale_factor.get()
+
+# Get user-selected scale factor
+SCALE_FACTOR = get_scale_factor()
 SCREEN_WIDTH, SCREEN_HEIGHT = 250, 250
 
 screen = pygame.display.set_mode((SCREEN_WIDTH * SCALE_FACTOR, SCREEN_HEIGHT * SCALE_FACTOR),vsync=1)
