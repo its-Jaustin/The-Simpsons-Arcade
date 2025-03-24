@@ -2,6 +2,7 @@ import pygame
 import sys
 from os.path import join
 from player import Homer 
+import level as lvl
 
 # Initialize Pygame
 pygame.init()
@@ -10,9 +11,15 @@ clock = pygame.time.Clock()
 
 
 # Set up the display
-SCREEN_WIDTH, SCREEN_HEIGHT = 600, 600
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),vsync=1)
+SCALE_FACTOR = 2.5  # Increase size by 2x
+SCREEN_WIDTH, SCREEN_HEIGHT = 250, 250
+
+screen = pygame.display.set_mode((SCREEN_WIDTH * SCALE_FACTOR, SCREEN_HEIGHT * SCALE_FACTOR),vsync=1)
 pygame.display.set_caption("The Simpsons - Arcade")
+
+
+# Create a smaller surface to render the game
+game_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 #set up font
@@ -34,8 +41,13 @@ text_rect = fps_text.get_rect(topright=(SCREEN_WIDTH - 10, 10))
 
 #initialize homer
 homer = Homer()
-homer.z = SCREEN_HEIGHT - 100  # Set initial z position for depth effect
+homer.z = SCREEN_HEIGHT  # Set initial z position for depth effect
 
+level = lvl.Stage1()
+
+health_bar = pygame.image.load("Sprites\\ui\\homer-health-bar-0.png").convert()
+health_bar.set_colorkey((0,0,0))
+health_bar_rect = pygame.Rect(0,5, health_bar.get_width(), health_bar.get_height())
 
 # Game loop
 running = True
@@ -43,12 +55,14 @@ lastTime = pygame.time.get_ticks()
 accumulator = 0
 counter = 0
 deltaTime = 0
+dev_view = False
 
 while running:
     #Time changes
     counter += 1
     current = pygame.time.get_ticks()
     elapsedTime = current - lastTime
+    lastTime = current
     deltaTime = elapsedTime / 1000.0
     accumulator += elapsedTime
     if accumulator > 1000.0:
@@ -67,28 +81,55 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             keyDowns[event.key] = True
+    
+    if pygame.K_p in keyDowns:
+        dev_view = not dev_view
+
  
     # Fill the screen with white
-    screen.fill(WHITE)
+    game_surface.fill(WHITE)
 
     # Draw the FPS counter to the screen
-    screen.blit(fps_text, text_rect)
+    game_surface.blit(fps_text, text_rect)
 
     # Get the state of all keys
     keys = pygame.key.get_pressed()
 
-    # Update and Draw the player on the screen
-    homer.update(keys, keyDowns)
-    homer.draw(screen)
+    # Update and Draw the player on the scxxxreen
+    homer.update(keys, keyDowns, elapsedTime)
 
+    #handle collisions
+    if homer.rect.right >= SCREEN_WIDTH:
+        homer.rect.right = SCREEN_WIDTH
+    if homer.rect.left <= 0:
+        homer.rect.left = 0
+    if homer.rect.bottom >= SCREEN_HEIGHT:
+        homer.rect.bottom = SCREEN_HEIGHT
+
+    level.update(homer, game_surface)
+    level.draw(game_surface)
+    homer.draw(game_surface)
+    
+    game_surface.blit(health_bar, health_bar_rect)
+
+    if dev_view:
+        level.draw_rects(game_surface)
+        homer.draw_hitbox(game_surface)
+    
+
+    # Scale the game surface before rendering it to the actual screen
+    scaled_surface = pygame.transform.scale(game_surface, (SCREEN_HEIGHT * SCALE_FACTOR, SCREEN_HEIGHT * SCALE_FACTOR))
+    screen.blit(scaled_surface, (0, 0))
 
     # Update the display
-    pygame.display.update()
+    pygame.display.flip()
 
     pygame.time.wait(int(current + MS_PER_FRAME - pygame.time.get_ticks()))
-    lastTime = current
+    
 
 
 # Quit Pygame
 pygame.quit()
 sys.exit()
+
+

@@ -1,0 +1,188 @@
+{"frames": {
+
+"fence-breaking-0.png":
+{
+	"frame": {"x":2,"y":2,"w":47,"h":82},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":82},
+	"sourceSize": {"w":47,"h":82}
+},
+"fence-breaking-1.png":
+{
+	"frame": {"x":51,"y":2,"w":60,"h":91},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":91},
+	"sourceSize": {"w":60,"h":91}
+},
+"fence-breaking-2.png":
+{
+	"frame": {"x":113,"y":2,"w":91,"h":117},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":91,"h":117},
+	"sourceSize": {"w":91,"h":117}
+},
+"fence.png":
+{
+	"frame": {"x":206,"y":2,"w":32,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":64},
+	"sourceSize": {"w":32,"h":64}
+},
+"garage-door.png":
+{
+	"frame": {"x":240,"y":2,"w":160,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":128},
+	"sourceSize": {"w":160,"h":128}
+},
+"light-post.png":
+{
+	"frame": {"x":402,"y":2,"w":14,"h":175},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":175},
+	"sourceSize": {"w":14,"h":175}
+},
+"main-street.png":
+{
+	"frame": {"x":2,"y":179,"w":1664,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1664,"h":256},
+	"sourceSize": {"w":1664,"h":256}
+},
+"police-car.png":
+{
+	"frame": {"x":1668,"y":179,"w":160,"h":62},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":62},
+	"sourceSize": {"w":160,"h":62}
+},
+"purple-door-left-open-0.png":
+{
+	"frame": {"x":1830,"y":179,"w":29,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":77},
+	"sourceSize": {"w":29,"h":77}
+},
+"purple-door-left-open-1.png":
+{
+	"frame": {"x":1861,"y":179,"w":29,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":77},
+	"sourceSize": {"w":29,"h":77}
+},
+"purple-door-open-left.png":
+{
+	"frame": {"x":1892,"y":179,"w":29,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":77},
+	"sourceSize": {"w":29,"h":77}
+},
+"purple-door-open-right.png":
+{
+	"frame": {"x":1830,"y":179,"w":29,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":77},
+	"sourceSize": {"w":29,"h":77}
+},
+"purple-door-open.png":
+{
+	"frame": {"x":1830,"y":179,"w":29,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":77},
+	"sourceSize": {"w":29,"h":77}
+},
+"purple-double-door.png":
+{
+	"frame": {"x":1923,"y":179,"w":64,"h":63},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":63},
+	"sourceSize": {"w":64,"h":63}
+},
+"shop-door-open-0.png":
+{
+	"frame": {"x":2,"y":437,"w":31,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":78},
+	"sourceSize": {"w":31,"h":78}
+},
+"shop-door-open-1.png":
+{
+	"frame": {"x":35,"y":437,"w":33,"h":79},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":33,"h":79},
+	"sourceSize": {"w":33,"h":79}
+},
+"shop-door.png":
+{
+	"frame": {"x":70,"y":437,"w":40,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":64},
+	"sourceSize": {"w":40,"h":64}
+},
+"shops-and-bridge-0.png":
+{
+	"frame": {"x":112,"y":437,"w":1664,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1664,"h":256},
+	"sourceSize": {"w":1664,"h":256}
+},
+"tree1.png":
+{
+	"frame": {"x":1778,"y":437,"w":64,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":122},
+	"sourceSize": {"w":64,"h":122}
+},
+"tree2.png":
+{
+	"frame": {"x":1844,"y":437,"w":64,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":122},
+	"sourceSize": {"w":64,"h":122}
+},
+"wheel.png":
+{
+	"frame": {"x":1910,"y":437,"w":22,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":21},
+	"sourceSize": {"w":22,"h":21}
+},
+"yellow-door-closed.png":
+{
+	"frame": {"x":1934,"y":437,"w":34,"h":61},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":61},
+	"sourceSize": {"w":34,"h":61}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "stage1-sprites.png",
+	"format": "RGBA8888",
+	"size": {"w":1989,"h":695},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b083ff12df41cd6cc1a3f547364869c3:109e1f4575e21b74e3e2f9e901b6d8ab:20e19c3ec63b172c8429f64edefffa53$"
+}
+}
