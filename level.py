@@ -2,6 +2,10 @@ import pygame
 import json
 import spritesheet
 from pygame import Color
+from npc import Goon
+import random
+from pygame import Color
+
 
 class Stage1:
     def __init__(self):
@@ -31,7 +35,6 @@ class Stage1:
                 "num-goons-right": 2,
                 "num-goons-left":0
             }
-
         }
         
 
@@ -56,37 +59,36 @@ class Stage1:
         if self.camera_x >= self.spawnzone[self.num_zone]['x'] and not self.spawnzone[self.num_zone]["visited"]:
             self.spawnzone[self.num_zone]["visited"] = True
             for n in range(self.spawnzone[self.num_zone]["num-goons-right"]):
-                self.spawnGoonRight()
+                self.spawnGoon(screen.get_width(), screen.get_height(), 'r')
             for n in range(self.spawnzone[self.num_zone]["num-goons-left"]):
-                self.spawnGoonLeft()
+                self.spawnGoon(screen.get_width(), screen.get_height(), 'l')
         if not self.npcs and self.spawnzone[self.num_zone]["visited"]:
             self.spawnzone[self.num_zone]["completed"] = True
-
         if self.spawnzone[self.num_zone]["completed"] == True:
             self.num_zone += 1
         # Update NPCs
         for npc in self.npcs:
             pass
 
-    def spawnGoonRight(self):
+    def spawnGoon(self, w, h, dir='r'):
         self.spawnzone[self.num_zone]["num-goons-right"] -= 1
-        self.npcs.append(1)
-        pass
-    def spawnGoonLeft(self):
-        pass
-       
+        npc = Goon()
+        npc.z = h - int(random.random() * 40)
+        npc.rect.y = npc.z
+        npc.rect.x = w + 20 if dir == 'r' else w - 20
+        self.npcs.append(npc)
+
         
 
     def draw(self, screen):
         # Draw the street with an offset
         screen.blit(self.street_image, self.street_rect.topleft)
 
-        #draw NPCs
+        # for npc in self.npcs:
+        #     npc.draw()
 
         # Draw the shops with an offset
         screen.blit(self.shops_image, self.shops_rect.topleft)
-        
-
         
 
     def draw_rects(self, screen):

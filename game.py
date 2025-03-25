@@ -35,7 +35,8 @@ def get_scale_factor():
     return scale_factor.get()
 
 # Get user-selected scale factor
-SCALE_FACTOR = get_scale_factor()
+#SCALE_FACTOR = get_scale_factor()
+SCALE_FACTOR = 2.5
 SCREEN_WIDTH, SCREEN_HEIGHT = 250, 250
 
 screen = pygame.display.set_mode((SCREEN_WIDTH * SCALE_FACTOR, SCREEN_HEIGHT * SCALE_FACTOR),vsync=1)
@@ -119,6 +120,10 @@ while running:
     # Get the state of all keys
     keys = pygame.key.get_pressed()
 
+    #Update state of goons
+    for npc in level.npcs:
+        npc.update(homer.rect.x, homer.z)
+
     # Update and Draw the player on the scxxxreen
     homer.update(keys, keyDowns, elapsedTime)
 
@@ -130,15 +135,25 @@ while running:
     if homer.rect.bottom >= SCREEN_HEIGHT:
         homer.rect.bottom = SCREEN_HEIGHT
 
+
     level.update(homer, game_surface)
+    
     level.draw(game_surface)
     homer.draw(game_surface)
-    
+    z_sorted = [homer] + level.npcs
+    def sort_z(x):
+        return x.z
+    z_sorted.sort(key=sort_z)
+    for guy in z_sorted:
+        guy.draw(game_surface)
+
     game_surface.blit(health_bar, health_bar_rect)
 
     if dev_view:
         level.draw_rects(game_surface)
         homer.draw_hitbox(game_surface)
+        for npc in level.npcs:
+            npc.draw_hitbox(game_surface)
     
 
     # Scale the game surface before rendering it to the actual screen
