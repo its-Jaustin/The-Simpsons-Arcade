@@ -23,6 +23,7 @@ CALCULATED_MAX_JUMP_HEIGHT = 143 ##CHANGE MANUALLY - calculate in apply_gravity(
 MID_AIR_ATTACK_XSPEED = 4  # Speed applied during midair attacks
 MID_AIR_ATTACK_YSPEED = MID_AIR_ATTACK_XSPEED / 1.414  # 45-degree force component (approx. sqrt(2)/2)
 STEP_FORWARD = 13
+TOP_OF_STREET = 163
 
 class Homer:
     def __init__(self):
@@ -56,7 +57,15 @@ class Homer:
         self.facing = "r"
         self.max_jump_height = 20
         
-
+    def info(self):
+        return {
+            'x': self.rect.x,
+            'y': self.rect.y,
+            'z': self.z,
+            'stunned': self.stunned,
+            'attacking': self.attacking,
+            'facing': self.facing
+        }
 
 
     def update(self, keys, keyDowns, elapsedTime):
@@ -96,6 +105,7 @@ class Homer:
         self.rect.y += self.vel_y  # Apply vertical movement
         if self.on_ground:
             self.z = self.rect.bottom
+
         else:
             self.vel_y += GRAVITY #apply gravity if in the air
             if self.rect.bottom >= self.z:  # Collision with ground
@@ -145,6 +155,9 @@ class Homer:
             if self.on_ground:
                 #up and down movement only if on ground
                 self.vel_y = self.vertical_input * V_SPEED
+                if self.z <= TOP_OF_STREET:
+                    self.z = TOP_OF_STREET
+                    self.rect.bottom = self.z
             #check for landing on the ground
             elif self.rect.bottom >= self.z:  # Collision with ground
                 self.rect.bottom = self.z
@@ -408,6 +421,7 @@ class Homer:
                     self.sprite_number = 0
                     self.movement_state = 'idle'
                     self.attacking = False
+            
 
 
 

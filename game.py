@@ -34,6 +34,9 @@ def get_scale_factor():
     root.mainloop()
     return scale_factor.get()
 
+
+
+        
 # Get user-selected scale factor
 #SCALE_FACTOR = get_scale_factor()
 SCALE_FACTOR = 2.5
@@ -67,7 +70,7 @@ text_rect = fps_text.get_rect(topright=(SCREEN_WIDTH - 10, 10))
 #initialize homer
 homer = Homer()
 homer.z = SCREEN_HEIGHT  # Set initial z position for depth effect
-
+players = [homer]
 level = lvl.Stage1()
 
 health_bar = pygame.image.load("Sprites\\ui\\homer-health-bar-0.png").convert()
@@ -105,7 +108,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
-            keyDowns[event.key] = True
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            else:
+                keyDowns[event.key] = True
     
     if pygame.K_p in keyDowns:
         dev_view = not dev_view
@@ -120,12 +126,37 @@ while running:
     # Get the state of all keys
     keys = pygame.key.get_pressed()
 
-    #Update state of goons
-    for npc in level.npcs:
-        npc.update(homer.rect.x, homer.z)
 
-    # Update and Draw the player on the scxxxreen
+    npcs = level.npcs
+    """Checks if the player's hurtbox collides with any NPCs and applies damage."""
+    for player in players:
+        if not player.hurt_box:
+            continue  # No active hurtbox, exit function
+
+        for npc in npcs:
+            #must be close enough and not already stunned
+            if npc.stunned or player.stunned:
+                continue
+            if player.hurt_box.colliderect(npc.rect) and abs(player.z - npc.z) <= 5:
+                #FIXME: implement npc health
+                npc.stunned = player.facing  # Example: Stun the NPC upon getting hit
+                npc.hurt_box = None
+                print(f"NPC Hit detected!")  # Debugging
+            elif not npc.hurt_box:
+                pass
+            elif npc.hurt_box.colliderect(player.rect) and abs(player.z - npc.z) <= 5:
+                #FIXME: implement npc health
+                player.stunned = npc.facing  # Example: Stun the NPC upon getting hit
+                player.hurt_box = None
+                print(f"Homer Hit detected!")  # Debugging
+
+    #Update state of goons
+    for npc in npcs:
+        npc.update(homer.info())
+
+    # Update and Draw the player(s) on the screen
     homer.update(keys, keyDowns, elapsedTime)
+    level.update(homer, game_surface)
 
     #handle collisions
     if homer.rect.right >= SCREEN_WIDTH:
@@ -134,9 +165,8 @@ while running:
         homer.rect.left = 0
     if homer.rect.bottom >= SCREEN_HEIGHT:
         homer.rect.bottom = SCREEN_HEIGHT
-
-
-    level.update(homer, game_surface)
+    
+    
     
     level.draw(game_surface)
     homer.draw(game_surface)

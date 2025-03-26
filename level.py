@@ -6,6 +6,7 @@ from npc import Goon
 import random
 from pygame import Color
 
+TOP_OF_STREET = 163
 
 class Stage1:
     def __init__(self):
@@ -21,25 +22,14 @@ class Stage1:
         self.all_rects = [self.shops_rect, self.street_rect]
         self.num_zone = 0
         self.spawnzone = {
-            0:{
-                "completed": False,
-                "visited": False,
-                "x": 416,
-                "num-goons-right": 1,
-                "num-goons-left":0
-            },
-            1:{
-                "completed": False,
-                "visited": False,
-                "x": 416,
-                "num-goons-right": 2,
-                "num-goons-left":0
-            }
-        }
+    0: {"completed": False, "visited": False, "x": 300, "num-goons-right": 3, "num-goons-left": 2},
+    1: {"completed": False, "visited": False, "x": 600, "num-goons-right": 4, "num-goons-left": 1},
+    2: {"completed": False, "visited": False, "x": 900, "num-goons-right": 2, "num-goons-left": 3},
+    3: {"completed": False, "visited": False, "x": 1200, "num-goons-right": 5, "num-goons-left": 0},
+    4: {"completed": False, "visited": False, "x": 1500, "num-goons-right": 1, "num-goons-left": 4},
+    5: {"completed": False, "visited": False, "x": 1660, "num-goons-right": 0, "num-goons-left": 5},
+}
         
-
-        
-
 
     def update(self, player, screen):
         self.spawnzone[self.num_zone]
@@ -67,13 +57,14 @@ class Stage1:
         if self.spawnzone[self.num_zone]["completed"] == True:
             self.num_zone += 1
         # Update NPCs
-        for npc in self.npcs:
-            pass
+        self.npcs = [npc for npc in self.npcs if not npc.dead]
+        
+                
 
     def spawnGoon(self, w, h, dir='r'):
         self.spawnzone[self.num_zone]["num-goons-right"] -= 1
         npc = Goon()
-        npc.z = h - int(random.random() * 40)
+        npc.z = h - int(random.random() * (h-TOP_OF_STREET))
         npc.rect.y = npc.z
         npc.rect.x = w + 20 if dir == 'r' else w - 20
         self.npcs.append(npc)
